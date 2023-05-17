@@ -1,0 +1,24 @@
+<p class="logo">hello</p>
+<div  class="grid msg-box">
+  <div id="container" class="w-full m-2">
+    <div class="message right"></div>
+    <div class="message left"></div>
+  </div>
+
+</div>
+<div class="send-box m-auto send-box w-6">
+  <div class="p-inputgroup">
+    <input type="text" [(ngModel)]="newMessage" pInputText placeholder="Vote"/>
+    <button (click)="sendMsg()" type="button" class="bg-green-100 border-green-100" pButton icon="pi pi-check" styleClass="p-button-danger"></button>
+</div>
+</div>
+<!-- <router-outlet></router-outlet>
+
+<div *ngFor="let message of messageList">
+    <li>
+        {{message}}
+    </li>  
+</div>
+
+<input [(ngModel)]="newMessage"/>
+<button>Send Message</button> -->

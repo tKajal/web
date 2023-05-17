@@ -1,0 +1,31 @@
+::ng-deep{
+    .logo{
+        display: block;
+        margin: auto;
+    }
+    .msg-box{
+        max-width: 50%;
+        margin: auto;
+        background-color: #80808021;
+        height: 60vh;
+        overflow-y: auto;
+    }
+    .message{
+        background-color: aliceblue;
+        width: 24%;
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 4px;
+        height: 34px;
+        margin: 17px 12px;
+    }
+    .left{
+       float: left;
+       clear: both;
+    }
+    .right{
+        clear: both;
+        float: right;
+    }
+}
+
