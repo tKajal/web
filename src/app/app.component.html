@@ -3,15 +3,15 @@
   <div class="col-md-4">
 
     <div class="user-list-card">
-      <div (click)="selectUser(user?.phone)" class="user-card" *ngFor="let user of usersList">
+      <div [ngClass]="user==selectedUser?'active':''" class="user-card" *ngFor="let user of usersList">
         <!-- <img [src]="user?.image" [alt]="user?.name" class="avatar" /> -->
-        <p class="username">{{user?.name}}</p>
+        <p  (click)="selectUser(user?.phone)"  class="username">{{user?.name}}</p>
       </div>
     </div>
 
   </div>
-  <div id="container" class="col-8 msg-box">
-    <!-- <div class="message right"></div> -->
+  <div id="container" class="col-8 msg-box" >
+    <div *ngFor="let data of messageArray" [ngClass]="data.phone==phone?'right':'left'" class="message"> {{data.message}}</div> 
     <!-- <div class="message left"></div> -->
   </div>
   <div class="send-box m-auto send-box w-6">

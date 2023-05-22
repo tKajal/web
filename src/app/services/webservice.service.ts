@@ -36,7 +36,7 @@ export class WebserviceService {
   onRecieveMsg(){
     this.socket.off('recieve').on('recieve',roomId=>{
       console.log(roomId)
-      this.selectedUserRoomId.next(roomId)
+      this.selectedUserRoomId.next(roomId.roomId)
     })
     
   }
@@ -46,13 +46,14 @@ export class WebserviceService {
   }
   onUserJoined(){
     this.socket.off('user-joined').on('user-joined', user=>{
-   //  console.log(name)
-      this.appendElement(`${user.name} joined chat`,'right')
+     console.log(user)
+     // this.appendElement(`${user.name} joined chat`,'right')
     })
   }
   onUserLeft(){
     this.socket.on('left',data=>{
-      this.appendElement(`${data.name} left`,'right')
+      console.log(data)
+     // this.appendElement(`${data.name} left`,'right')
     })
   }
 }
