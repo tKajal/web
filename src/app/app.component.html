@@ -1,16 +1,26 @@
 <p class="logo">hello</p>
-<div  class="grid msg-box">
-  <div id="container" class="w-full m-2">
-    <div class="message right"></div>
-    <div class="message left"></div>
-  </div>
+<div  class="flex grid col-8 m-auto">
+  <div class="col-md-4">
 
+    <div class="user-list-card">
+      <div (click)="selectUser(user?.phone)" class="user-card" *ngFor="let user of usersList">
+        <!-- <img [src]="user?.image" [alt]="user?.name" class="avatar" /> -->
+        <p class="username">{{user?.name}}</p>
+      </div>
+    </div>
+
+  </div>
+  <div id="container" class="col-8 msg-box">
+    <!-- <div class="message right"></div> -->
+    <!-- <div class="message left"></div> -->
+  </div>
+  <div class="send-box m-auto send-box w-6">
+    <div class="p-inputgroup">
+      <input type="text" [(ngModel)]="newMessage" pInputText placeholder="Vote"/>
+      <button (click)="sendMsg()" type="button" class="bg-green-100 border-green-100" pButton icon="pi pi-check" styleClass="p-button-danger"></button>
+  </div>
 </div>
-<div class="send-box m-auto send-box w-6">
-  <div class="p-inputgroup">
-    <input type="text" [(ngModel)]="newMessage" pInputText placeholder="Vote"/>
-    <button (click)="sendMsg()" type="button" class="bg-green-100 border-green-100" pButton icon="pi pi-check" styleClass="p-button-danger"></button>
-</div>
+
 </div>
 <!-- <router-outlet></router-outlet>
 

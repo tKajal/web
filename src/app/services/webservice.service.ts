@@ -9,7 +9,9 @@ import { io } from "socket.io-client";
 })
 export class WebserviceService {
 
-  public message$: BehaviorSubject<string> = new BehaviorSubject('');
+  audio = new Audio('../assets/media/MessageTone.mp3');
+  selectedUserRoomId=new BehaviorSubject(null)
+
   constructor() {}
 
   socket = io('http://localhost:3000');
@@ -21,41 +23,36 @@ export class WebserviceService {
     element.classList.add('message')
     element.classList.add(position);
     container.append(element)
-
+    if(position=='left'){
+      this.audio.play();
+    }
   }
-  public sendMessage(message:any) {
-    this.appendElement(message,'right')
-    this.socket.emit('send', message);
+  public sendMessage(selectedUserRoomId:any) {
+  //  this.appendElement(message,'right')
+    this.socket.emit('send', selectedUserRoomId);
    // this.onRecieveMsg()
   }
 
   onRecieveMsg(){
-    this.socket.off('recieve').on('recieve',data=>{
-      console.log(data)
-      this.appendElement(data.message,'left')
+    this.socket.off('recieve').on('recieve',roomId=>{
+      console.log(roomId)
+      this.selectedUserRoomId.next(roomId)
     })
-  }
-  public getNewMessage = () => {
-    this.socket.on('message', (message) =>{
-      this.message$.next(message);
-    });
     
-    return this.message$.asObservable();
-  };
-
-  getUser(name:any){
-    this.socket.emit('new-user-joined', name)
+  }
+  getUser(user:any){
+    this.socket.emit('new-user-joined', user)
     this.onUserJoined();
   }
   onUserJoined(){
-    this.socket.off('user-joined').on('user-joined', name=>{
+    this.socket.off('user-joined').on('user-joined', user=>{
    //  console.log(name)
-      this.appendElement(name,'right')
+      this.appendElement(`${user.name} joined chat`,'right')
     })
   }
   onUserLeft(){
     this.socket.on('left',data=>{
-      this.appendElement(`${data} left`,'left')
+      this.appendElement(`${data.name} left`,'right')
     })
   }
 }

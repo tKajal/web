@@ -1,0 +1,71 @@
+<p class="logo">Welcome {{currentUserName}}</p>
+<div class="flex grid col-8 m-auto">
+  <div class="col-md-4">
+
+    <div class="user-list-card">
+      <div (click)="selectUserHandler(user?.phone)" class="user-card" *ngFor="let user of userList">
+        <img [src]="user?.image" [alt]="user?.name" class="avatar" />
+        <p class="username">{{user?.name}}</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-8 msg-box">
+    <!-- <div id="container" class="w-full m-2">
+      <div class="message right"></div>
+      <div class="message left"></div>
+    </div>
+   -->
+
+    <div class="chat-container">
+      <ng-container *ngIf="selectedUser">
+        <div class="chat-header">
+
+          <img [src]="selectedUser?.image" [alt]="selectedUser?.name" class="avatar" />
+          <p class="username">{{selectedUser?.name}}</p>
+        </div>
+
+        <div class="chat-body">
+          <div *ngFor="let item of messageArray">
+            <p class="message-container">{{item?.message}}</p>
+          </div>
+        </div>
+
+        <div class="chat-footer">
+
+          <div class="row">
+            <div class="col-md-10">
+              <div class="form-group mb-0">
+                <input type="text" placeholder="Type a message" class="form-control" [(ngModel)]="messageText"
+                  (keyup)="$event.keyCode === 13 && sendMessage()" />
+              </div>
+            </div>
+
+            <div class="col-md-2 text-center align-self-center">
+              <button class="btn btn-primary btn-sm px-3" (click)="sendMessage()">Send
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="send-box m-auto send-box w-6">
+  <div class="p-inputgroup">
+    <input type="text" [(ngModel)]="newMessage" pInputText placeholder="Vote"/>
+    <button (click)="sendMsg()" type="button" class="bg-green-100 border-green-100" pButton icon="pi pi-check" styleClass="p-button-danger"></button>
+</div>
+</div> -->
+<!-- <router-outlet></router-outlet>
+
+<div *ngFor="let message of messageList">
+    <li>
+        {{message}}
+    </li>  
+</div>
+
+<input [(ngModel)]="newMessage"/>
+<button>Send Message</button> -->
