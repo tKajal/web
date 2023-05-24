@@ -12,13 +12,19 @@ export class MessageService {
 
     constructor(public httpClient: HttpClient) { }
 
-    getMessages() {
+    async getMessages() {
         let url = `${this.url}/messages`
-        return this.httpClient.get(url);
+        return await this.httpClient.get(url).toPromise()
     }
-    sendMessage(message:MessageModal) {
+    sendMessage(message:any) {
+        console.log(message)
         let url = `${this.url}/messages`
         return this.httpClient.post(url,message);
+    }
+    updateMessages(message:any) {
+        console.log(message)
+        let url = `${this.url}/messages`
+        return this.httpClient.put(url,message);
     }
     
 }

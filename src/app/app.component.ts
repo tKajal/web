@@ -1,6 +1,7 @@
 
 import { Component, OnChanges, SimpleChanges } from '@angular/core';
 import { WebserviceService } from './services/webservice.service';
+import { MessageService } from './services/message.service';
 
 
 
@@ -19,8 +20,8 @@ export class AppComponent implements OnChanges {
   messageArray: any;
   storageArray: any;
   phone: any;
-  constructor(private webService: WebserviceService) {
-
+  constructor(private webService: WebserviceService,   
+    private messageService:MessageService) {
   }
 
 
@@ -59,7 +60,7 @@ export class AppComponent implements OnChanges {
     },
   ]
   ngOnInit() {
-    if (!sessionStorage.getItem('phone')) {
+    if (!sessionStorage.getItem('phone') || sessionStorage.getItem('phone')==null) {
       this.phone = prompt('enter name');
       sessionStorage.setItem('phone', this.phone)
     }
@@ -85,19 +86,26 @@ export class AppComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
 
   }
-  sendMsg() {
-    this.storageArray = this.getStorage();
+  async sendMsg() {
+    let chatArray:any
+    let  pData=await this.messageService.getMessages()
+    this.storageArray = pData//this.getStorage();
+    //this.storageArray = this.getStorage();
     const storeIndex = this.storageArray
       .findIndex((storage: any) => storage.roomId === this.roomId);
 
     if (storeIndex > -1) {
-      this.storageArray[storeIndex].chats.push({
+      chatArray={
         user: this.currentUser.name,
         message: this.newMessage,
         phone: this.phone
-      });
+      }
+      this.storageArray[storeIndex].chats.push(chatArray);
+      this.messageService.updateMessages(this.storageArray[storeIndex]).subscribe(data=>{
+        console.log(data)
+      })
     } else {
-      const updateStorage = {
+      chatArray = {
         roomId: this.roomId,
         chats: [{
           user: this.currentUser.name,
@@ -105,14 +113,17 @@ export class AppComponent implements OnChanges {
           phone: this.phone
         }]
       };
-
-      this.storageArray.push(updateStorage);
+      this.messageService.sendMessage(chatArray).subscribe(data=>{
+        console.log(data)
+      })
+      this.storageArray.push(chatArray);
     }
 
     this.setStorage(this.storageArray);
 
     this.newMessage = '';
     this.webService.sendMessage(this.roomId)
+    
     this.getChatData()
   }
 
@@ -124,8 +135,9 @@ export class AppComponent implements OnChanges {
     this.getChatData()
   }
 
-  getChatData() {
-    this.storageArray = this.getStorage();
+  async getChatData() {
+    let  pData=await this.messageService.getMessages()
+    this.storageArray = pData//this.getStorage();
     const storeIndex = this.storageArray
       .findIndex((storage: any) => storage.roomId === this.roomId);
     if (storeIndex > -1) {
@@ -139,7 +151,8 @@ export class AppComponent implements OnChanges {
     this.webService.onUserJoined();
   }
 
-  getStorage() {
+   getStorage() {
+   
     const storage: any = localStorage.getItem('chatData');
 
     let data = storage ? JSON.parse(storage) : [];
