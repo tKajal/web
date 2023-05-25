@@ -22,7 +22,7 @@
 </div>
 
 </div> -->
-<section style="background-color: #CDC4F9;min-height: 100vh;height: auto;">
+<section style="background-color: #000000d4;min-height: 100vh;height: auto;">
   <div class="container py-5" >
 
     <div class="row" style="height:100%">
@@ -62,7 +62,10 @@
                           </div>
                           <div class="pt-1">
                             <p class="small text-muted mb-1">Just now</p>
-                            <span class="badge bg-danger rounded-pill float-end">3</span>
+                            {{user.roomId[this.currentUser.id]}}
+                            
+                            <!-- {{count}}{{msgId}} {{user.roomId[this.currentUser.id]}} {{this.selectedUser?.name}} -->
+                            <span *ngIf="count>0 && msgId==user.roomId[this.currentUser.id] && this.selectedUser!=user" class="badge bg-danger rounded-pill float-end">{{count}}</span>
                           </div>
                         </a>
                       </li>
@@ -97,10 +100,10 @@
                 <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
                     alt="avatar 3" style="width: 40px; height: 100%;">
-                  <input [(ngModel)]="newMessage" type="text" class="form-control form-control-lg" id="exampleFormControlInput2"
+                  <input [(ngModel)]="newMessage" type="text" class="form-control form-control-lg mr-1" id="exampleFormControlInput2"
                     placeholder="Type message">
                     <!-- <input type="text" [(ngModel)]="newMessage" pInputText placeholder="Vote"/> -->
-                    <button (click)="sendMsg()" type="button" class="bg-purple-200 border-purple-200" pButton icon="pi pi-check" styleClass="p-button-danger"></button>
+                    <button (click)="sendMsg()" type="button" class="bg-purple-200 border-purple-200 w-1" pButton icon="pi pi-check" styleClass="p-button-danger"></button>
                     <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>
                   <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
                   <a class="ms-3" href="#!"><i class="fas fa-paper-plane"></i></a>

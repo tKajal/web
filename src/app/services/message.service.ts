@@ -26,5 +26,14 @@ export class MessageService {
         let url = `${this.url}/messages`
         return this.httpClient.put(url,message);
     }
-    
+    updateCount(data:any) {
+        console.log(data)
+        let url = `${this.url}/count`
+        return this.httpClient.put(url,data);
+    }
+    getCount(data:any) {
+        console.log(data)
+        let url = `${this.url}/count/${data.roomId}/${data.from}`
+        return this.httpClient.get(url);
+    }
 }
