@@ -1,50 +1,67 @@
-::ng-deep{
-    .logo{
-        display: block;
-        margin: auto;
-    }
-    .active{
-        color: #91d350;
-    }
-    .msg-box{
-        max-width: 50%;
-        margin: auto;
-        background-color: #80808021;
-        height: 60vh;
-        overflow-y: auto;
-    }
-    .message{
-        background-color: aliceblue;
-        width: 24%;
-        padding: 10px;
-        border: 2px solid black;
-        border-radius: 4px;
-        height: 34px;
-        margin: 17px 12px;
-    }
-    .left{
-       float: left;
-       clear: both;
-    }
-    .right{
-        clear: both;
-        float: right;
-    }
+::ng-deep {
+  .logo {
+    display: block;
+    margin: auto;
+  }
+
+  // .active{
+  //     color: #91d350;
+  // }
+  .msg-box {
+    max-width: 50%;
+    margin: auto;
+    background-color: #80808021;
+    height: 60vh;
+    overflow-y: auto;
+  }
+
+  .message {
+    background-color: aliceblue;
+    width: 24%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 4px;
+    height: 34px;
+    margin: 17px 12px;
+  }
+
+  .left {
+    float: left;
+    clear: both;
+  }
+
+  .right {
+    clear: both;
+    float: right;
+  }
 }
 
 #chat3 .form-control {
-    border-color: transparent;
-    }
-    
-    #chat3 .form-control:focus {
-    border-color: transparent;
-    box-shadow: inset 0px 0px 0px 1px transparent;
-    }
-    
-    .badge-dot {
-    border-radius: 50%;
-    height: 10px;
-    width: 10px;
-    margin-left: 2.9rem;
-    margin-top: -.75rem;
-    }
+  border-color: transparent;
+}
+
+#chat3 .form-control:focus {
+  border-color: transparent;
+  box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.badge-dot {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin-left: 2.9rem;
+  margin-top: -.75rem;
+}
+
+.active {
+  background: rgb(205 196 249 / 27%);
+  border-radius: 8px;
+}
+
+.default-bg {
+  /* background: rgba(205, 196, 249, 0.1882352941); */
+  background-size: cover !important;
+  border-radius: 6px;
+  background: #cdc4f930;
+  background-image: url('../assets/images/NRP_Private-Messaging_Header.webp');
+}
