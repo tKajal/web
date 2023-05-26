@@ -9,7 +9,7 @@ import { MessageService } from './services/message.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnChanges {
   newMessage: string = '';
@@ -34,6 +34,13 @@ export class AppComponent implements OnChanges {
       name: 'test1',
       phone: '9876598765',
       image: 'assets/user/user-1.png',
+      countData:[
+        {
+        id:'room-1',count:0},
+        {
+          id:'room-2',count:0
+        }
+      ],
       roomId: {
         2: 'room-1',
         3: 'room-2'
@@ -44,6 +51,13 @@ export class AppComponent implements OnChanges {
       name: 'test2',
       phone: '6567876543',
       image: 'assets/user/user-2.png',
+      countData:[
+        {
+        id:'room-1',count:0},
+        {
+          id:'room-6',count:0
+        }
+      ],
       roomId: {
         1: 'room-1',
         3: 'room-6'
@@ -55,6 +69,7 @@ export class AppComponent implements OnChanges {
       name: 'test3',
       phone: '89828930288',
       image: 'assets/user/user-2.png',
+      count:0,
       roomId: {
         1: 'room-2',
         2: 'room-6',
@@ -111,6 +126,7 @@ export class AppComponent implements OnChanges {
       this.storageArray[storeIndex].chats.push(chatArray);
       this.messageService.updateMessages(this.storageArray[storeIndex]).subscribe(data=>{
         console.log(data)
+        this.getChatData();
       })
     } else {
       chatArray = {
@@ -125,6 +141,7 @@ export class AppComponent implements OnChanges {
       };
       this.messageService.sendMessage(chatArray).subscribe(data=>{
         console.log(data)
+        this.getChatData();
       })
       this.storageArray.push(chatArray);
     }
@@ -134,7 +151,7 @@ export class AppComponent implements OnChanges {
     this.newMessage = '';
     this.webService.sendMessage(this.roomId)
     
-    this.getChatData();
+  
   }
 
   selectUser(phone: any) {
@@ -186,4 +203,14 @@ export class AppComponent implements OnChanges {
   setStorage(data: any) {
     localStorage.setItem('chatData', JSON.stringify(data));
   }
+  adduser(){
+    // userschema = mongoose.Schema({ id: Number,
+    //   name: String,
+    //   phone: String,
+    //   image: String,
+    //   countData:[{id:String,count:Number}]
+    // });
+
+  }
+
 }
