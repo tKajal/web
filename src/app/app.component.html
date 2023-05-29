@@ -62,10 +62,13 @@
                           </div>
                           <div class="pt-1">
                             <p class="small text-muted mb-1">Just now</p>
-                            {{user.roomId[this.currentUser.id]}}
                             
+                            {{user.roomId[this.currentUser.id]}}
                             <!-- {{count}}{{msgId}} {{user.roomId[this.currentUser.id]}} {{this.selectedUser?.name}} -->
-                            <span *ngIf="count>0 && msgId==user.roomId[this.currentUser.id] && this.selectedUser!=user" class="badge bg-danger rounded-pill float-end">{{count}}</span>
+                            <span *ngFor="let element of user.countData"
+                             class="badge bg-danger rounded-pill float-end">
+                              <span *ngIf="element.id==user.roomId[this.currentUser.id]">{{element.count}}</span>   
+                            </span>
                           </div>
                         </a>
                       </li>

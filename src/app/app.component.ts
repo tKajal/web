@@ -1,5 +1,5 @@
 
-import { ChangeDetectionStrategy, Component, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, SimpleChanges } from '@angular/core';
 import { WebserviceService } from './services/webservice.service';
 import { MessageService } from './services/message.service';
 
@@ -24,7 +24,7 @@ export class AppComponent implements OnChanges {
   count: number=0;
   msgId: any;
   constructor(private webService: WebserviceService,   
-    private messageService:MessageService) {
+    private messageService:MessageService,private changeDetectorRef: ChangeDetectorRef) {
   }
 
 
@@ -78,6 +78,7 @@ export class AppComponent implements OnChanges {
     },
   ]
   ngOnInit() {
+   
     if (!sessionStorage.getItem('phone') || sessionStorage.getItem('phone')==null) {
       this.phone = prompt('enter name');
       sessionStorage.setItem('phone', this.phone)
@@ -99,15 +100,15 @@ export class AppComponent implements OnChanges {
       
      // this.msgId=id
       console.log(id)
-      if (id) {
+     // if (id) {
        // this.count=this.count+1;
         this.getChatData()
-      }
+     // }
     })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
+   // this.changeDetectorRef.detectChanges();
   }
   async sendMsg() {
     let chatArray:any
@@ -182,11 +183,24 @@ export class AppComponent implements OnChanges {
       .findIndex((storage: any) => storage.roomId === this.roomId);
     if (storeIndex > -1) {
       this.messageArray = this.storageArray[storeIndex].chats;
+      this.getUnreadCount()
     }
 
     this.join(this.selectedUser);
   }
 
+  getUnreadCount(){
+    this.usersList?.forEach((user:any) => {
+      user.countData?.forEach((d:any)=>{
+        this.storageArray?.forEach((st:any) => {
+          if(st.roomId==d.id){
+              d.count=st.count
+          }
+        });
+      })
+    });
+    console.log(this.usersList)
+  }
   join(selectedUser: any): void {
     this.webService.onUserJoined();
   }
