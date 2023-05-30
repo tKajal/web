@@ -17,7 +17,7 @@ export class WebserviceService {
   socket = io('http://localhost:3000');
 
   public appendElement(data:string,position:string,){
-    let container:any=document.getElementById('container')
+    let container:any=document.getElementById('default-cont')
     let element=document.createElement('div');
     element.innerText=data;
     element.classList.add('message')
@@ -33,9 +33,13 @@ export class WebserviceService {
    // this.onRecieveMsg()
   }
 
+  initiateAudio(){
+    this.appendElement('Enjoy!!','left')
+  }
   onRecieveMsg(){
     this.socket.off('recieve').on('recieve',roomId=>{
       console.log(roomId)
+     
       this.selectedUserRoomId.next(roomId.roomId)
     })
     
@@ -55,5 +59,8 @@ export class WebserviceService {
       console.log(data)
      // this.appendElement(`${data.name} left`,'right')
     })
+  }
+  playAudio(){
+    this.audio.play();
   }
 }

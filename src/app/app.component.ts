@@ -70,6 +70,13 @@ export class AppComponent implements OnChanges {
       phone: '89828930288',
       image: 'assets/user/user-2.png',
       count:0,
+      countData:[
+        {
+        id:'room-2',count:0},
+        {
+          id:'room-6',count:0
+        }
+      ],
       roomId: {
         1: 'room-2',
         2: 'room-6',
@@ -78,7 +85,7 @@ export class AppComponent implements OnChanges {
     },
   ]
   ngOnInit() {
-   
+    this.webService.initiateAudio();
     if (!sessionStorage.getItem('phone') || sessionStorage.getItem('phone')==null) {
       this.phone = prompt('enter name');
       sessionStorage.setItem('phone', this.phone)
@@ -100,10 +107,12 @@ export class AppComponent implements OnChanges {
       
      // this.msgId=id
       console.log(id)
-     // if (id) {
+    if (id && this.currentUser.countData.find((item:any)=>item.id==id)) {
+      debugger
+        this.webService.playAudio();
        // this.count=this.count+1;
         this.getChatData()
-     // }
+     }
     })
   }
 
@@ -123,6 +132,8 @@ export class AppComponent implements OnChanges {
         message: this.newMessage,
         phone: this.phone
       }
+      this.storageArray[storeIndex].from=this.currentUser.id,
+      this.storageArray[storeIndex].roomId= this.roomId,
       this.storageArray[storeIndex].count=this.storageArray[storeIndex].count+1;
       this.storageArray[storeIndex].chats.push(chatArray);
       this.messageService.updateMessages(this.storageArray[storeIndex]).subscribe(data=>{
@@ -179,13 +190,14 @@ export class AppComponent implements OnChanges {
   async getChatData() {
     let  pData=await this.messageService.getMessages()
     this.storageArray = pData//this.getStorage();
+
     const storeIndex = this.storageArray
       .findIndex((storage: any) => storage.roomId === this.roomId);
     if (storeIndex > -1) {
       this.messageArray = this.storageArray[storeIndex].chats;
-      this.getUnreadCount()
+    
     }
-
+    this.getUnreadCount()
     this.join(this.selectedUser);
   }
 
@@ -193,12 +205,23 @@ export class AppComponent implements OnChanges {
     this.usersList?.forEach((user:any) => {
       user.countData?.forEach((d:any)=>{
         this.storageArray?.forEach((st:any) => {
-          if(st.roomId==d.id){
-              d.count=st.count
+          user.from=st.from
+          if(st.from!==this.currentUser.id){
+            if(st.roomId==d.id){
+              if(d.id==this.roomId){
+                this.updateSelectedUserCount({roomId:this.roomId,from:this.currentUser.id,count:0})
+              }
+              else{
+                d.count=st.count
+              }
+
           }
+          }
+         
         });
       })
     });
+   
     console.log(this.usersList)
   }
   join(selectedUser: any): void {

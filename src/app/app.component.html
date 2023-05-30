@@ -63,11 +63,13 @@
                           <div class="pt-1">
                             <p class="small text-muted mb-1">Just now</p>
                             
-                            {{user.roomId[this.currentUser.id]}}
+                            <!-- {{user.roomId[this.currentUser.id]}} -->
                             <!-- {{count}}{{msgId}} {{user.roomId[this.currentUser.id]}} {{this.selectedUser?.name}} -->
                             <span *ngFor="let element of user.countData"
                              class="badge bg-danger rounded-pill float-end">
-                              <span *ngIf="element.id==user.roomId[this.currentUser.id]">{{element.count}}</span>   
+                              <span *ngIf="element.id==user.roomId[this.currentUser.id] && element.count>0 &&
+                                roomId!==user.roomId[this.currentUser.id]
+                                ">{{element.count}}</span>   
                             </span>
                           </div>
                         </a>
@@ -96,6 +98,9 @@
                   <ng-container *ngIf="!messageArray">
                       <h3 class="capitalize">Wlecome, {{currentUser.name}}</h3>
                       <p>Please select a chat to Start messaging</p>
+                      <div class="default-cont">
+                        
+                      </div>
                   </ng-container>
 
                 </div>
