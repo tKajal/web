@@ -16,17 +16,20 @@ export class WebserviceService {
 
   socket = io('http://localhost:3000');
 
-  public appendElement(data:string,position:string,){
-    let container:any=document.getElementById('default-cont')
-    let element=document.createElement('div');
-    element.innerText=data;
-    element.classList.add('message')
-    element.classList.add(position);
-    container.append(element)
-    if(position=='left'){
-      this.audio.play();
-    }
-  }
+  // public appendElement(data:string,position:string,){
+  //   document.addEventListener('click',function(){
+  //    console.log('jy')
+  //   })
+  //   // let container:any=document.getElementById('default-cont')
+  //   // let element=document.createElement('div');
+  //   // element.innerText=data;
+  //   // element.classList.add('message')
+  //   // element.classList.add(position);
+  //   // container.ad
+  //   // if(position=='left'){
+  //   //   this.audio.play();
+  //   // }
+  // }
   public sendMessage(selectedUserRoomId:any) {
   //  this.appendElement(message,'right')
     this.socket.emit('send', selectedUserRoomId);
@@ -34,7 +37,9 @@ export class WebserviceService {
   }
 
   initiateAudio(){
-    this.appendElement('Enjoy!!','left')
+    let data:any=document.getElementById("default-cont");
+    data.click();
+    console.log(data,'is clicked')
   }
   onRecieveMsg(){
     this.socket.off('recieve').on('recieve',roomId=>{

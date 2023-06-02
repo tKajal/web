@@ -1,5 +1,5 @@
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { WebserviceService } from './services/webservice.service';
 import { MessageService } from './services/message.service';
 
@@ -11,7 +11,10 @@ import { MessageService } from './services/message.service';
   styleUrls: ['./app.component.scss'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnChanges {
+
+export class AppComponent implements OnChanges, AfterContentInit {
+
+  @ViewChild('myDiv',{  static:false }) myDiv: ElementRef;
   newMessage: string = '';
   messageList: any;
 
@@ -84,8 +87,22 @@ export class AppComponent implements OnChanges {
       }
     },
   ]
+
+  ngAfterContentInit() {
+    console.log("afterinit");
+    setTimeout(() => {
+      this.myDiv.nativeElement.click();
+      console.log(this.myDiv)
+     // if(this.myDiv)
+     // this.webService.playAudio()
+      },  1000);
+  }
   ngOnInit() {
-    this.webService.initiateAudio();
+    //this.webService.initiateAudio()
+    setTimeout(() => {
+      this.myDiv.nativeElement.click();
+
+      }, 200);
     if (!sessionStorage.getItem('phone') || sessionStorage.getItem('phone')==null) {
       this.phone = prompt('enter name');
       sessionStorage.setItem('phone', this.phone)
@@ -109,7 +126,7 @@ export class AppComponent implements OnChanges {
       console.log(id)
     if (id && this.currentUser.countData.find((item:any)=>item.id==id)) {
       debugger
-        this.webService.playAudio();
+      this.webService.playAudio()
        // this.count=this.count+1;
         this.getChatData()
      }
@@ -118,6 +135,7 @@ export class AppComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
    // this.changeDetectorRef.detectChanges();
+  // this.webService.initiateAudio()
   }
   async sendMsg() {
     let chatArray:any
