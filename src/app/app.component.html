@@ -22,8 +22,8 @@
 </div>
 
 </div> -->
-<section #myDiv style="background-color: #000000d4;min-height: 100vh;height: auto;">
-  <div class="container py-5" >
+<section  style="background-color: #000000d4;min-height: 100vh;height: auto;">
+  <div id="myDiv" class="container py-5" >
 
     <div class="row" style="height:100%">
       <div class="col-md-12">
@@ -105,7 +105,7 @@
 
                 </div>
 
-                <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
+                <div *ngIf="selectedUser" class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
                     alt="avatar 3" style="width: 40px; height: 100%;">
                   <input [(ngModel)]="newMessage" type="text" class="form-control form-control-lg mr-1" id="exampleFormControlInput2"

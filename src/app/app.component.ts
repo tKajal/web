@@ -14,7 +14,7 @@ import { MessageService } from './services/message.service';
 
 export class AppComponent implements OnChanges, AfterContentInit {
 
-  @ViewChild('myDiv',{  static:false }) myDiv: ElementRef;
+  //@ViewChild('myDiv',{  static:false }) myDiv: ElementRef;
   newMessage: string = '';
   messageList: any;
 
@@ -28,6 +28,12 @@ export class AppComponent implements OnChanges, AfterContentInit {
   msgId: any;
   constructor(private webService: WebserviceService,   
     private messageService:MessageService,private changeDetectorRef: ChangeDetectorRef) {
+
+      window.onload=function(){
+        const startbtn:any = document.getElementById("myDiv");
+        startbtn.click()
+      //  alert('Page Loaded')
+      };
   }
 
 
@@ -89,20 +95,31 @@ export class AppComponent implements OnChanges, AfterContentInit {
   ]
 
   ngAfterContentInit() {
+    window.onload=function(){
+      const startbtn:any = document.getElementById("myDiv");
+      startbtn.click()
+    //  alert('Page Loaded')
+    };
     console.log("afterinit");
-    setTimeout(() => {
-      this.myDiv.nativeElement.click();
-      console.log(this.myDiv)
-     // if(this.myDiv)
-     // this.webService.playAudio()
-      },  1000);
+    // setTimeout(() => {
+    //   const startbtn:any = document.getElementById("myDiv");
+    //   // startbtn.addEventListener("click", () => {
+    //   //   //Show the loader and hide the button
+    //   //   console.log('clicked')
+    //   // });
+
+    //   startbtn.click()
+    //   startbtn.onclick = function(){alert('hi');};
+    //   },  1000);
+     
   }
   ngOnInit() {
+ 
     //this.webService.initiateAudio()
-    setTimeout(() => {
-      this.myDiv.nativeElement.click();
+    // setTimeout(() => {
+    //   this.myDiv.click();
 
-      }, 200);
+    //   }, 200);
     if (!sessionStorage.getItem('phone') || sessionStorage.getItem('phone')==null) {
       this.phone = prompt('enter name');
       sessionStorage.setItem('phone', this.phone)
