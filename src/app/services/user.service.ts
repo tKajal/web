@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-    url = "http://localhost:3000";
+    url = "https://web-api-nine-green.vercel.app";
 
     constructor(public httpClient: HttpClient) { }
 
