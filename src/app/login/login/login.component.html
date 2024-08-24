@@ -1,0 +1,28 @@
+<div class="form-wrapper">
+    <div class="form-container">
+      <form (ngSubmit)="onSubmit()" #phoneForm="ngForm">
+        <div class="form-group">
+          <label for="phone">Enter your phone number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            pattern="^[0-9]{10}$"
+            [(ngModel)]="phone"
+            #phoneInput="ngModel"
+            class="form-control"
+            placeholder="1234567890"
+          />
+          <div *ngIf="phoneInput.invalid && phoneInput.touched" class="error">
+            Please enter a valid 10-digit phone number.
+          </div>
+        </div>
+  
+        <button type="submit" [disabled]="phoneForm.invalid" class="next-button">
+          Next
+        </button>
+      </form>
+    </div>
+  </div>
+  
